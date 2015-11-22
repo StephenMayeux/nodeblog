@@ -1,8 +1,69 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: Arial;
+  font-size: 15px;
+  background: #f4f4f4;
+  color: #666;
+}
+
+.logo {
+  text-align: center;
+  margin: auto;
+  display: block;
+}
+
+.container {
+  width: 750px;
+  border: 1px solid #ccc;
+  margin: 20px auto;
+  padding: 20px;
+  border-top: #83cd29 3px solid;
+}
+
+.clr {
+  clear: both;
+  
+}
+
+ul {
+  padding: 0px;
+  margin: 0px;
+}
+
+h1, h2, h3, p {
+  padding: 5px 0px;
+  margin-bottom: 0px;
+}
+
+p {
+  margin: 0px;
 }
 
 a {
-  color: #00B7FF;
+  color: #404137;
+  text-decoration: none;
+}
+
+nav {
+  background: #404137;
+  color: #fff;
+  overflow: auto;
+  height: 40px;
+  padding: 20px 0px 0px 10px;
+  font-size: 18px;
+}
+
+nav li {
+  float: left;
+  list-style: none;
+}
+
+nav a {
+  padding: 10px;
+  margin: 0px 10px;
+  color: #fff;
+}
+
+nav a.current, nav a:hover {
+  background: #83cd29;
+  color: #000;
 }
