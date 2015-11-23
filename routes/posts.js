@@ -4,9 +4,14 @@ var mongo = require("mongodb");
 var db = require("monk")("localhost/nodeblog");
 
 router.get('/add', function(req, res, next) {
-   res.render('addpost', {
-       "title": "Add Post"
-   }); 
+   var categories = db.get('categories'); // grab categories from db
+   
+   categories.find({}, {}, function(err, categories) { // list all of them
+      res.render('addpost', {
+       "title": "Add Post",
+       "categories": categories
+      });
+   });
 });
 
 router.post('/add', function(req, res, next) {
