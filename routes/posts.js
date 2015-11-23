@@ -1,3 +1,8 @@
+/* 
+Can create a new blog post without an image
+Cannot upload image
+*/
+
 var express = require('express');
 var router = express.Router();
 var mongo = require("mongodb");
@@ -7,6 +12,7 @@ router.get('/add', function(req, res, next) {
    var categories = db.get('categories'); // grab categories from db
    
    categories.find({}, {}, function(err, categories) { // list all of them
+      if (err) throw err;
       res.render('addpost', {
        "title": "Add Post",
        "categories": categories
@@ -21,16 +27,17 @@ router.post('/add', function(req, res, next) {
    var body     = req.body.body;
    var author   = req.body.author;
    var date     = new Date();
+
    
    if (req.files.mainimage) { // if we upload an image, grab this info
-        var mainImageOriginalName = req.files.mainimage.originalname;
-        var mainImageName = req.files.mainimage.name;
-        var mainImageMime = req.files.mainimage.mimetype;
-        var mainImagePath = req.files.mainimage.path;
-        var mainImageExt  = req.files.mainimage.extension;
-        var mainImageSize = req.files.mainimage.size;
+        var mainImageOriginalName   = req.files.mainimage.originalname;
+        var mainImageName           = req.files.mainimage.name;
+        var mainImageMime           = req.files.mainimage.mimetype;
+        var mainImagePath           = req.files.mainimage.path;
+        var mainImageExt            = req.files.mainimage.extension;
+        var mainImageSize           = req.files.mainimage.size;
    } else {
-       var mainImageName = 'noimage.png'; // if not, set a default image
+      mainImageName = 'noimage.png'; // if not, set a default image
    }
    
    // Form Validation

@@ -37,7 +37,7 @@ app.use(function(req,res,next){
 app.set('view engine', 'jade');
 
 // Handle File Uploads & Multipart Data
-app.use(multer({ dest: './public/images/uploads'}).single());
+app.use(multer({ dest: './public/images/uploads'}));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
