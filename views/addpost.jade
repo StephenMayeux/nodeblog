@@ -27,3 +27,6 @@ block content
                 option(value='Stephen Mayeux') Stephen Mayeux
                 option(value='Tanya Mayeux') Tanya Mayeux
         input.btn.btn-default(name='submit', type='submit', value='Save')
+        script(src='/ckeditor/ckeditor.js')
+        script
+            | CKEDITOR.replace('body');
