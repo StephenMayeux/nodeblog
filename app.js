@@ -1,14 +1,14 @@
-var express = require('express');
+var express = require('express'); // version 4.12.0
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var expressValidator = require('express-validator');
 var cookieParser = require('cookie-parser');
 var session = require("express-session");
-var bodyParser = require('body-parser');
+var bodyParser = require('body-parser'); // version 1.12.0
 var mongo = require("mongodb");
 var db = require("monk")('localhost/nodeblog');
-var multer = require("multer");
+var multer = require("multer"); // version 0.1.8
 var flash = require("connect-flash");
 
 var routes = require('./routes/index');
