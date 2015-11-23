@@ -17,7 +17,7 @@ router.post('/add', function(req, res, next) {
    var author   = req.body.author;
    var date     = new Date();
    
-   if (req.files.mainimage) {
+   if (req.files.mainimage) { // if we upload an image, grab this info
         var mainImageOriginalName = req.files.mainimage.originalname;
         var mainImageName = req.files.mainimage.name;
         var mainImageMime = req.files.mainimage.mimetype;
@@ -25,11 +25,43 @@ router.post('/add', function(req, res, next) {
         var mainImageExt  = req.files.mainimage.extension;
         var mainImageSize = req.files.mainimage.size;
    } else {
-       var mainImageName = 'noimage.png';
+       var mainImageName = 'noimage.png'; // if not, set a default image
    }
    
    // Form Validation
+   req.checkBody('title', 'Title field is required').notEmpty();
+   req.checkBody('body', 'You cannot have a blog post with some text!');
    
+   // check errors from validator above
+   var errors = req.validationErrors();
+   
+   if (errors) {
+      res.render('addpost', { //render on addpost view
+         "errors": errors, // if there are any errors, don't lose form input!
+         "title": title,
+         "body": body
+      });
+   } else {
+      var posts = db.get('posts');
+      
+      //submit to db
+      posts.insert({
+         "title": title,
+         "body": body,
+         "category": category,
+         "date": date,
+         "author": author,
+         "mainImageName": mainImageName
+      }, function(err, post){
+         if (err) {
+            res.send("There was an issue submitting a post");
+         } else {
+            req.flash('success', 'Post submitted!');
+            res.location('/');
+            res.redirect('/');
+         }
+      });
+   }
 });
 
 module.exports = router;
