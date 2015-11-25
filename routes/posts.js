@@ -53,7 +53,7 @@ router.post('/add', function(req, res, next) {
    
    // Form Validation
    req.checkBody('title', 'Title field is required').notEmpty();
-   req.checkBody('body', 'You cannot have a blog post with some text!');
+   req.checkBody('body', 'You cannot have a blog post with some text!').notEmpty();
    
    // check errors from validator above
    var errors = req.validationErrors();
@@ -84,6 +84,57 @@ router.post('/add', function(req, res, next) {
             res.redirect('/');
          }
       });
+   }
+});
+
+router.post('/addcomment', function(req, res, next) {
+   // get the form values
+   var name       = req.body.name; // name comes from jade/view file, in the form's name attribute
+   var email      = req.body.email;
+   var body       = req.body.body;
+   var postid     = req.body.postid;
+   var commentdate = new Date();
+
+   // Form Validation
+   req.checkBody('name', 'Name field is required').notEmpty();
+   req.checkBody('email', 'Email field is required').notEmpty();
+   req.checkBody('email', 'Invalide email').isEmail();
+   req.checkBody('body', 'You need to leave a comment!').notEmpty();
+   
+   // check errors from validator above
+   var errors = req.validationErrors();
+   
+   if (errors) {
+      var posts = db.get('posts');
+      posts.findById(postid, function(err, post) {
+         res.render('show', {
+            "errors": errors,
+            "post": post
+         });
+      });
+   } else {
+      var comment = {"name": name, "email": email, "body": body, "commentdate": commentdate};
+      var posts = db.get('posts');
+      console.log('this is the post id ' + postid);
+      
+      posts.update({
+            "_id": postid,
+         },
+         {
+            $push: {
+               "comments": comment
+            }
+         },
+         function(err, doc) {
+            if (err) {
+               throw err;
+            } else {
+               req.flash('success', 'your comment has posted!');
+               res.location('/posts/show/' + postid);
+               res.redirect('/posts/show/' + postid);
+            }
+         }
+      );
    }
 });
 
