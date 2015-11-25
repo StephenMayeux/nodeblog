@@ -3,6 +3,18 @@ var router = express.Router();
 var mongo = require("mongodb");
 var db = require("monk")("localhost/nodeblog");
 
+router.get('/show/:category', function(req, res, next) { // :category is what user enters after /show/
+   var db = req.db;
+   var posts = db.get('posts');
+   posts.find({category: req.params.category},{},function(err,posts) {
+      if (err) throw err;
+      res.render('index', { // will use same layout as index
+         "title": req.params.category,
+         "posts": posts
+      });
+   }); // req.params.category refers to /show/:category from above
+});
+
 // Add categories
 router.get('/add', function(req, res, next) {
   res.render('addcategory', {
