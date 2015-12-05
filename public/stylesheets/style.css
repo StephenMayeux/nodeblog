@@ -93,6 +93,10 @@ a.more {
   width: 100%;
 }
 
+.show img {
+  width: 100%;
+}
+
 label {
   display: inline-block;
   width: 180px;
