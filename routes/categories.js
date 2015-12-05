@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongo = require("mongodb");
-var db = require("monk")("process.env.MONGOLAB_URI");
+var db = require("monk")("mongodb://heroku_8xwp74s4:3156sl4po200kp378e9h46aur1@ds063124.mongolab.com:63124/heroku_8xwp74s4");
 
 router.get('/show/:category', function(req, res, next) { // :category is what user enters after /show/
    var db = req.db;
