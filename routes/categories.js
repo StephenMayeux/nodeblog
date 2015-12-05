@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongo = require("mongodb");
-var db = require("monk")("localhost/nodeblog");
+var db = require("monk")("process.env.MONGOLAB_URI");
 
 router.get('/show/:category', function(req, res, next) { // :category is what user enters after /show/
    var db = req.db;
