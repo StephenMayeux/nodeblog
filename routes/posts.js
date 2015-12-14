@@ -6,7 +6,7 @@ Cannot upload image
 var express = require('express');
 var router = express.Router();
 var mongo = require("mongodb");
-var db = require("monk")("localhost/nodeblog");
+var db = require("monk")("MONGOLAB_URI");
 
 router.get('/show/:id', function(req, res, next) {
    var posts = db.get('posts');

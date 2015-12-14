@@ -9,7 +9,7 @@ var cookieParser = require('cookie-parser');
 var session = require("express-session");
 var bodyParser = require('body-parser'); // version 1.12.0
 var mongo = require("mongodb");
-var db = require("monk")('localhost/nodeblog'); //originally localhost/nodeblog
+var db = require("monk")('MONGOLAB_URI'); //originally localhost/nodeblog
 var multer = require("multer"); // version 0.1.8
 var flash = require("connect-flash");
 
