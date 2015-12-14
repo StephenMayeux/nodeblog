@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongo = require("mongodb");
-var db = require("monk")("mongodb://heroku_8xwp74s4:3156sl4po200kp378e9h46aur1@ds063124.mongolab.com:63124/heroku_8xwp74s4");
+var db = require("monk")("localhost/nodeblog");
 
 router.get('/show/:category', function(req, res, next) { // :category is what user enters after /show/
    var db = req.db;
@@ -25,6 +25,7 @@ router.get('/add', function(req, res, next) {
 router.post('/add', function(req, res, next) {
    // get the form values
    var title    = req.body.title; // title comes from jade/view file, in the form's name attribute
+   console.log(title);
 
    // Form Validation
    req.checkBody('title', 'Title field is required').notEmpty();
